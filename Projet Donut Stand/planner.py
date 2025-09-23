@@ -16,59 +16,62 @@ def is_goal(state, final_state):
     return state["grid"] == final_state["forme"]
 
 def generate_actions(action_obj, state):
-    """
-    Générer toutes les actions possibles.On renvoie (nouvel_etat, description_action).
-    """
     actions = []
     objets = list(state["grid"].keys())
 
-    #pickup
+    # pickup
     for obj in objets:
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.pickup(obj)
-            actions.append((deepcopy(new_state), f"pickup({obj})"))
+            if new_state:   # filtrer {}
+                actions.append((deepcopy(new_state), f"pickup({obj})"))
         except Exception:
             pass
     
-    #drop
+    # drop
     for obj in objets:
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.drop(obj)
-            actions.append((deepcopy(new_state), f"drop({obj})"))
+            if new_state:
+                actions.append((deepcopy(new_state), f"drop({obj})"))
         except Exception:
             pass
 
-    #moveto
+    # moveTo
     positions = [(0,0), (1,1), (-1,1), (1,-1)]
     for pos in positions:
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.moveTo(pos)
-            actions.append((deepcopy(new_state), f"moveTo{pos}"))
+            if new_state:
+                actions.append((deepcopy(new_state), f"moveTo{pos}"))
         except Exception:
             pass
 
-    #push
+    # push
     for obj in objets:
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.push(obj)
-            actions.append((deepcopy(new_state), f"push({obj})"))
+            if new_state:
+                actions.append((deepcopy(new_state), f"push({obj})"))
         except Exception:
             pass
 
-    #roll
+    # roll
     for obj in objets:
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.roll(obj, 1)
-            actions.append((deepcopy(new_state), f"roll({obj},1)"))
+            if new_state:
+                actions.append((deepcopy(new_state), f"roll({obj},1)"))
         except Exception:
             pass
 
     return actions
+
 
 
 def bfs_planner(base_file="base.json", final_file="final.json"):
