@@ -38,13 +38,19 @@ class Action :
         
         if (world_state["arm"]["holding"]==True and world_state["arm"]["object"] is not None):
             world_state["grid"][world_state["arm"]["object"]]["position_occupe"] = [list(position)]
-            world_state["arm"]["object"] = None
-            world_state["arm"]["holding"] = False
             self.world_state = world_state
         return world_state
     
-
-
+    def push(self, objet : str) -> Dict:
+        world_state = self.world_state.copy()
+        if objet not in self.objects :
+            raise ValueError(f"Objet '{objet}' non reconnu.")
+        
+        if (world_state["grid"][objet] is not None and world_state["grid"][objet]["orientation"] != [0,1,0]):
+            world_state["grid"][objet]["orientation"] = [-1,0,0]
+            self.world_state = world_state
+        return world_state
+    
 
 # Programme pour tester les actions
 def main():

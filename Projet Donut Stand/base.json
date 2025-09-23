@@ -7,8 +7,11 @@
                 "poids": 1,
                 "opaque": 1,
                 "position_occupe": [
-                    [ 1, 8 ]
-                ]
+                    [ -1, 1 ]
+                ],
+                "on_Top_of": "table",
+                "under" : "grand",
+                "orientation" : [0, 1, 0]
             },
             "grand": {
                 "couleur": "gris",
@@ -16,16 +19,11 @@
                 "poids": 1,
                 "opaque": 1,
                 "position_occupe": [
-                    [ 1, 8 ],
-                    [ 0, 9 ],
-                    [ 0, 8 ],
-                    [ 0, 7 ],
-                    [ 1, 7 ],
-                    [ 1, 9 ],
-                    [ 2, 7 ],
-                    [ 2, 8 ],
-                    [ 2, 9 ]
-                ]
+                    [ -1, 1 ]
+                ],
+                "on_Top_of": "petit",
+                "under" : "nothing",
+                "orientation" : [0, 1, 0]
             }
         },
         "cylindre": {
@@ -34,8 +32,11 @@
             "poids": 1,
             "opaque": 1,
             "position_occupe": [
-                [ 8, 8 ]
-            ]
+                [ 1, 1 ]
+            ],
+            "on_Top_of": "table",
+            "under" : "nothing",
+                "orientation" : [0, 1, 0]
         },
         "donut_saucisse": {
             "couleur": "rouge",
@@ -43,15 +44,11 @@
             "poids": 1,
             "opaque": 1,
             "position_occupe": [
-                [ 0, 0 ],
-                [ 0, 1 ],
-                [ 1, 0 ],
-                [ 1, 1 ],
-                [ 2, 0 ],
-                [ 2, 1 ],
-                [ 3, 0 ],
-                [ 3, 1 ]
-            ]
+                [ -1, -1 ]
+            ],
+            "on_Top_of": "table",
+            "under" : "nothing",
+            "orientation" : [0, 1, 0]
         }
     }
 }
