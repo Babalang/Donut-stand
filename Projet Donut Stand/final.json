@@ -29,7 +29,7 @@
         "cylindre": {
             "couleur": "gris",
             "materiau": "W",
-            "poids": 1,
+            "poids": 10,
             "opaque": 1,
             "position_occupe": [
                 [ 0, 0 ]
