@@ -17,6 +17,8 @@ class Action :
         if (world_state["arm"]["holding"]==False and world_state["arm"]["object"] is None and world_state["grid"][objet]["under"] == "nothing"):
             world_state["arm"]["object"] = objet
             world_state["arm"]["holding"] = True
+        else :
+            return {}
         
         return world_state
     
@@ -34,7 +36,9 @@ class Action :
                     tmp = o    
             world_state["grid"][objet]["on_Top_of"] = tmp
             world_state["grid"][objet]["under"] = "nothing"
-            world_state["grid"][tmp]["under"] = objet    
+            world_state["grid"][tmp]["under"] = objet   
+        else :
+            return {} 
         return world_state
     
     def moveTo(self, position: tuple[int,int]) -> Dict:
@@ -45,6 +49,8 @@ class Action :
         if (world_state["arm"]["holding"]==True and world_state["arm"]["object"] is not None and world_state["grid"][world_state["arm"]["object"]]["poids"] < 10):
             world_state["grid"][world_state["arm"]["object"]]["position_occupe"] = [list(position)]
             self.world_state = world_state
+        else :
+            return {}
         return world_state
     
     def push(self, objet : str) -> Dict:
@@ -58,6 +64,8 @@ class Action :
         elif (world_state["grid"][objet] is not None and world_state["grid"][objet]["orientation"] == [0,0,1]):
             world_state["grid"][objet]["orientation"] = [0,1,0]
             self.world_state = world_state
+        else :
+            return {}
         return world_state
     
     def roll(self, objet : str, length = 1):
@@ -65,10 +73,11 @@ class Action :
         if objet not in self.objects :
             raise ValueError(f"Objet '{objet}' non reconnu.")
         
-        if (world_state["grid"][objet] is not None):
-            if(world_state["grid"][objet]["orientation"] == [0,0,1] and world_state["grid"][objet]["position_occupe"][0][0] - length >= -1):
-                world_state["grid"][objet]["position_occupe"] = [max(-1,world_state["grid"][objet]["position_occupe"][0][0] - length), world_state["grid"][objet]["position_occupe"][0][1]]
+        if(world_state["grid"][objet]["orientation"] == [0,0,1] and world_state["grid"][objet]["position_occupe"][0][0] - length >= -1):
+            world_state["grid"][objet]["position_occupe"] = [max(-1,world_state["grid"][objet]["position_occupe"][0][0] - length), world_state["grid"][objet]["position_occupe"][0][1]]
             self.world_state = world_state
+        else :
+            return {}
         return world_state
 
 def main():
