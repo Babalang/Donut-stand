@@ -1,5 +1,6 @@
 import json
 from typing import Any, Dict, List, Optional, Union
+import copy
 
 class Action : 
     def __init__(self, base_file : str = 'base.json') :
@@ -10,20 +11,21 @@ class Action :
 
 
     def pickup(self, objet : str) -> Dict:
-        world_state = self.world_state.copy()
+        world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         
         if (world_state['arm']['holding']==False and world_state['arm']['object'] is None and world_state['grid'][objet]['under'] == 'nothing'):
             world_state['arm']['object'] = objet
             world_state['arm']['holding'] = True
+            self.world_state = world_state
         else :
             return {}
         
         return world_state
     
     def drop(self, objet: str) -> Dict:
-        world_state = self.world_state.copy()
+        world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         
@@ -37,12 +39,13 @@ class Action :
             world_state['grid'][objet]['on_Top_of'] = tmp
             world_state['grid'][objet]['under'] = 'nothing'
             world_state['grid'][tmp]['under'] = objet   
+            self.world_state = world_state
         else :
             return {} 
         return world_state
     
     def moveTo(self, position: tuple[int,int]) -> Dict:
-        world_state = self.world_state.copy()
+        world_state = copy.deepcopy(self.world_state)
         #if (world_state['arm']['object'] not in self.objects) :
             #raise ValueError(f'Objet '{world_state['arm']['object']}' non reconnu.')
         
@@ -54,7 +57,7 @@ class Action :
         return world_state
     
     def push(self, objet : str) -> Dict:
-        world_state = self.world_state.copy()
+        world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         
@@ -69,7 +72,7 @@ class Action :
         return world_state
     
     def roll(self, objet : str, length = 1):
-        world_state = self.world_state.copy()
+        world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         

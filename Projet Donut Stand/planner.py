@@ -18,6 +18,7 @@ def is_goal(state, final_state):
 def generate_actions(action_obj, state):
     actions = []
     objets = list(state["grid"].keys())
+    # print(len(objets))
 
     # pickup
     for obj in objets:
@@ -40,7 +41,7 @@ def generate_actions(action_obj, state):
             pass
 
     # moveTo
-    positions = [(0,0), (1,1), (-1,1), (1,-1)]
+    positions = [(0,0), (1,1), (-1,1), (1,-1), (0,-1), (0,1), (-1,-1), (-1,0), (1,0)]
     for pos in positions:
         try:
             action_obj.world_state = deepcopy(state)
@@ -69,6 +70,8 @@ def generate_actions(action_obj, state):
                 actions.append((deepcopy(new_state), f"roll({obj},1)"))
         except Exception:
             pass
+        
+    # print(len(actions))
 
     return actions
 
@@ -81,8 +84,12 @@ def bfs_planner(base_file="base.json", final_file="final.json"):
 
     visited = set()
     queue = deque([(init_state, [])])  # (state, actions_chain)
+    comp=0
 
     while queue:
+        print(comp)
+        comp+=1
+        print(len(queue))
         state, chain = queue.popleft()
         state_key = state_to_key(state)
 
