@@ -1,6 +1,7 @@
 import json
 from collections import deque
 from copy import deepcopy
+import pprint
 
 from actions import Action
 
@@ -13,25 +14,16 @@ def state_to_key(state):
     return json.dumps(state, sort_keys=True, ensure_ascii=False)
 
 def is_goal(state, final_state):
-    return state["grid"] == final_state["forme"]
+    return json.dumps(state, sort_keys=True) == json.dumps(final_state, sort_keys=True)
 
 def generate_actions(action_obj, state):
     actions = []
     objets = list(state["grid"].keys())
-    # print(len(objets))
 
-    # pickup
-    for obj in objets:
-        try:
-            action_obj.world_state = deepcopy(state)
-            new_state = action_obj.pickup(obj)
-            if new_state:   # filtrer {}
-                actions.append((deepcopy(new_state), f"pickup({obj})"))
-        except Exception:
-            pass
-    
+
     # drop
     for obj in objets:
+        
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.drop(obj)
@@ -51,7 +43,21 @@ def generate_actions(action_obj, state):
         except Exception:
             pass
 
-    # push
+    # pickup
+    for obj in objets:
+        try:
+            action_obj.world_state = deepcopy(state)
+            new_state = action_obj.pickup(obj)
+
+            if new_state:   # filtrer {}
+                
+                actions.append((deepcopy(new_state), f"pickup({obj})"))
+        except Exception:
+            pass
+    
+    
+
+    '''# push
     for obj in objets:
         try:
             action_obj.world_state = deepcopy(state)
@@ -71,31 +77,40 @@ def generate_actions(action_obj, state):
         except Exception:
             pass
         
-    # print(len(actions))
+    # print(len(actions))'''
 
     return actions
 
 
 
-def bfs_planner(base_file="base.json", final_file="final.json"):
+def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
+
     action_obj = Action(base_file)
     init_state = action_obj.world_state
-    final_state = load_json(final_file)
+
+    #print("init_state",init_state)
+
+    final_a_obj = Action(final_file)
+    final_state = final_a_obj.world_state
+
+    #pprint.pprint(init_state)
+    #pprint.pprint(final_state)
+
 
     visited = set()
     queue = deque([(init_state, [])])  # (state, actions_chain)
     comp=0
 
-    while queue:
-        print(comp)
-        comp+=1
-        print(len(queue))
-        state, chain = queue.popleft()
-        state_key = state_to_key(state)
 
-        if state_key in visited:
-            continue
-        visited.add(state_key)
+    while queue:
+        comp+=1
+        print("comp",comp)
+        
+        
+        state, chain = queue.popleft()
+        print("taille de chain",len(chain))
+
+
 
         if is_goal(state, final_state):
             return chain
@@ -106,7 +121,7 @@ def bfs_planner(base_file="base.json", final_file="final.json"):
     return None
 
 if __name__ == "__main__":
-    plan = bfs_planner("base.json", "final.json")
+    plan = bfs_planner("test_base.json", "test_final.json")
     if plan:
         print("Plan trouvé !")
         for i, step in enumerate(plan, 1):

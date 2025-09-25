@@ -1,0 +1,29 @@
+{
+    "forme": {
+        "petit_cube": {
+            
+            "couleur": "violet",
+            "materiau": "bois",
+            "poids": 1,
+            "opaque": 1,
+            "position_occupe": [
+                [ 1, -1 ]
+            ],
+            "on_Top_of": "grand_cube",
+            "under" : "nothing",
+            "orientation" : [0, 1, 0]
+        },
+        "grand_cube": {
+                "couleur": "gris",
+                "materiau": "roche",
+                "poids": 1,
+                "opaque": 1,
+                "position_occupe": [
+                    [ 1, -1 ]
+                ],
+                "on_Top_of": "table",
+                "under" : "petit_cube",
+                "orientation" : [0, 1, 0]
+            }
+    }
+}

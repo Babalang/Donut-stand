@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 import copy
 
 class Action : 
-    def __init__(self, base_file : str = 'base.json') :
+    def __init__(self, base_file ) :
         with open(base_file, 'r', encoding='utf-8') as f :
             self.base_data = json.load(f)
         self.objects = self.base_data['forme']
@@ -14,11 +14,21 @@ class Action :
         world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
+        #print(world_state)
         
-        if (world_state['arm']['holding']==False and world_state['arm']['object'] is None and world_state['grid'][objet]['under'] == 'nothing'):
+        if (world_state['arm']['holding']==False  and world_state['grid'][objet]['under'] == 'nothing'):
+            
+            
             world_state['arm']['object'] = objet
             world_state['arm']['holding'] = True
+
+            on_top = world_state['grid'][objet]['on_Top_of']
+            if on_top != 'nothing' and on_top != 'table':
+                world_state['grid'][on_top]['under'] = 'nothing'
+
             self.world_state = world_state
+
+            
         else :
             return {}
         
@@ -29,16 +39,24 @@ class Action :
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         
-        if (world_state['arm']['holding']==True and world_state['arm']['object']==objet):
+        if (world_state['arm']['holding'] == True and world_state['arm']['object'] == objet):
             world_state['arm']['object'] = None
             world_state['arm']['holding'] = False
+            
             tmp = 'table'
+
             for o in self.objects :
-                if(world_state['grid'][o]['position_occupe'] == world_state['grid'][objet]['position_occupe'] and o != objet and world_state['grid'][objet]['under'] == 'nothing'):
+                if(world_state['grid'][o]['position_occupe'] == world_state['grid'][objet]['position_occupe'] and o != objet and world_state['grid'][o]['under'] == 'nothing'):
                     tmp = o    
+            
             world_state['grid'][objet]['on_Top_of'] = tmp
             world_state['grid'][objet]['under'] = 'nothing'
-            world_state['grid'][tmp]['under'] = objet   
+
+            if (tmp != "table") :
+                world_state['grid'][tmp]['under'] = objet
+
+            
+            
             self.world_state = world_state
         else :
             return {} 
@@ -49,7 +67,7 @@ class Action :
         #if (world_state['arm']['object'] not in self.objects) :
             #raise ValueError(f'Objet '{world_state['arm']['object']}' non reconnu.')
         
-        if (world_state['arm']['holding']==True and world_state['arm']['object'] is not None and world_state['grid'][world_state['arm']['object']]['poids'] < 10):
+        if (world_state['arm']['holding']==True and world_state['arm']['object'] is not None):
             world_state['grid'][world_state['arm']['object']]['position_occupe'] = [list(position)]
             self.world_state = world_state
         else :
