@@ -10,7 +10,7 @@
                     [ -1, 1 ]
                 ],
                 "on_Top_of": "table",
-                "under" : "grand",
+                "under" : "grand_cube",
                 "orientation" : [0, 1, 0]
         },
 
@@ -22,7 +22,7 @@
             "position_occupe": [
                 [ -1, 1 ]
             ],
-            "on_Top_of": "petit",
+            "on_Top_of": "petit_cube",
             "under" : "nothing",
             "orientation" : [0, 1, 0]
         },
@@ -42,7 +42,7 @@
         
         "donut_saucisse": {
             "couleur": "rouge",
-            "materiau": "mÃ©tal",
+            "materiau": "métal",
             "poids": 1,
             "opaque": 1,
             "position_occupe": [

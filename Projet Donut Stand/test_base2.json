@@ -1,0 +1,29 @@
+{
+    "forme": {
+        "cylindre": {
+            "couleur": "gris",
+            "materiau": "W",
+            "poids": 10,
+            "opaque": 1,
+            "position_occupe": [
+                [ 1, 1 ]
+            ],
+            "on_Top_of": "table",
+            "under" : "nothing",
+                "orientation" : [0, 1, 0]
+        },
+        
+        "donut_saucisse": {
+            "couleur": "rouge",
+            "materiau": "métal",
+            "poids": 1,
+            "opaque": 1,
+            "position_occupe": [
+                [ -1, -1 ]
+            ],
+            "on_Top_of": "table",
+            "under" : "nothing",
+            "orientation" : [0, 1, 0]
+        }
+    }
+}
