@@ -15,8 +15,11 @@ class Action :
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         #print(world_state)
+
         
-        if (world_state['arm']['holding']==False  and world_state['forme'][objet]['under'] == 'nothing'):
+        
+        if (world_state['arm']['holding']==False  and world_state['forme'][objet]['under'] == 'nothing' and world_state['forme'][objet]["poids"] < 5):
+
             
             world_state['arm']['object'] = objet
             world_state['arm']['holding'] = True
@@ -73,27 +76,31 @@ class Action :
         return world_state
     
     def push(self, objet : str) -> Dict:
+
         world_state = copy.deepcopy(self.world_state)
         #if objet not in self.objects :
             #raise ValueError(f'Objet '{objet}' non reconnu.')
         
-        if (world_state['forme'][objet] is not None and world_state['forme'][objet]['orientation'] == [0,1,0]):
+        if (world_state['arm']['holding'] == False and world_state['forme'][objet] is not None and world_state['forme'][objet]['orientation'] == [0,1,0]):
             world_state['forme'][objet]['orientation'] = [0,0,1]
             self.world_state = world_state
-        elif (world_state['forme'][objet] is not None and world_state['forme'][objet]['orientation'] == [0,0,1]):
+      
+
+        elif (world_state['arm']['holding'] == False and world_state['forme'][objet] is not None and world_state['forme'][objet]['orientation'] == [0,0,1]):
             world_state['forme'][objet]['orientation'] = [0,1,0]
             self.world_state = world_state
+            
         else :
             return {}
         return world_state
     
-    def roll(self, objet : str, length = 1):
+    def roll(self, objet ,position: tuple[int,int]) -> Dict:
         world_state = copy.deepcopy(self.world_state)
-        #if objet not in self.objects :
-            #raise ValueError(f'Objet '{objet}' non reconnu.')
         
-        if(world_state['forme'][objet]['orientation'] == [0,0,1] and world_state['forme'][objet]['position_occupe'][0][0] - length >= -1):
-            world_state['forme'][objet]['position_occupe'] = [max(-1,world_state['forme'][objet]['position_occupe'][0][0] - length), world_state['forme'][objet]['position_occupe'][0][1]]
+        
+        if (world_state['arm']['holding'] == False and world_state['forme'][objet]['orientation'] == [0,0,1] and objet == "cylindre"):
+            world_state['forme'][objet]['position_occupe'] = [list(position)]
+
             self.world_state = world_state
         else :
             return {}

@@ -33,7 +33,7 @@
             "position_occupe": [
                 [ 0, 0 ]
             ],
-            "on_Top_of": "donut_saucisse",
+            "on_Top_of": "table",
             "under" : "nothing",
                 "orientation" : [0, 1, 0]
         },
@@ -46,7 +46,7 @@
                 [ 0, 0 ]
             ],
             "on_Top_of": "table",
-            "under" : "cylindre",
+            "under" : "nothing",
             "orientation" : [0, 0, 1]
         }
     }

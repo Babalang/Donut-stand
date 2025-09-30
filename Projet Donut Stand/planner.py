@@ -34,7 +34,7 @@ def generate_actions(action_obj, state):
             pass
 
     # moveTo ,(0,-1), (0,1), (-1,0), (1,0) Les coins : (1,1),(-1,1),(-1,-1)
-    positions = [(0,0),(1,-1)]
+    positions = [(0,0),(1,-1),(0,-1), (0,1), (-1,0), (1,0),(1,1),(-1,1),(-1,-1)]
     for pos in positions:
         try:
             action_obj.world_state = deepcopy(state)
@@ -65,18 +65,19 @@ def generate_actions(action_obj, state):
                 actions.append((new_state, f"push({obj})"))
         except Exception:
             pass
-    '''
+    
     # roll
-    for obj in objets:
+    for pos in positions:
+        obj = "cylindre"
         try:
             action_obj.world_state = deepcopy(state)
-            new_state = action_obj.roll(obj, 1)
+            new_state = action_obj.roll(obj,pos)
             if new_state:
-                actions.append((deepcopy(new_state), f"roll({obj},1)"))
+                actions.append((deepcopy(new_state), f"roll({obj,pos},1)"))
         except Exception:
             pass
         
-    # print(len(actions))'''
+    # print(len(actions))
 
     return actions
 
@@ -115,6 +116,7 @@ def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
         state, chain, parent = queue.popleft()
         if(len(chain) != prev_len_chen):
             print("taille de chain",len(chain))
+            print("nombre de noeuds", comp)
             prev_len_chen = len(chain)
         state_key = state_to_key(state)
 
