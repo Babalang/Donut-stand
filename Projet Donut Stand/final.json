@@ -33,8 +33,8 @@
             "position_occupe": [
                 [ 0, 0 ]
             ],
-            "on_Top_of": "donut_saucisse",
-            "under" : "nothing",
+            "on_Top_of": "table",
+            "under" : "donut_saucisse",
                 "orientation" : [0, 1, 0]
         },
         "donut_saucisse": {
@@ -45,8 +45,8 @@
             "position_occupe": [
                 [ 0, 0 ]
             ],
-            "on_Top_of": "table",
-            "under" : "cylindre",
+            "on_Top_of": "cylindre",
+            "under" : "nothing",
             "orientation" : [0, 0, 1]
         }
     }
