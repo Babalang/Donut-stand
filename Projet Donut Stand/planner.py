@@ -33,11 +33,15 @@ def generate_actions(action_obj, state):
         except Exception:
             pass
 
-    # moveTo ,(0,-1), (0,1), (-1,0), (1,0) Les coins : (1,1),(-1,1),(-1,-1)
-    positions = [(0,0),(1,-1)]
+
+    positions = [(0,0),(1,-1),(0,-1), (0,1), (-1,0), (1,0),(1,1),(-1,1),(-1,-1)]
+    # moveTo
     for pos in positions:
         try:
             action_obj.world_state = deepcopy(state)
+            # Empêcher moveTo sur le cylindre
+            if state['arm']['object'] == "cylindre":
+                continue
             new_state = action_obj.moveTo(pos)
             if new_state:
                 actions.append((new_state, f"moveTo{pos}"))
@@ -46,18 +50,20 @@ def generate_actions(action_obj, state):
 
     # pickup
     for obj in objets:
+        if obj == "cylindre":
+            continue  # Interdire pickup du cylindre
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.pickup(obj)
-
-            if new_state:   # filtrer {}
-                
+            if new_state:
                 actions.append((new_state, f"pickup({obj})"))
         except Exception:
             pass
 
     # push
     for obj in objets:
+        if obj == "grand_cube" or obj == "petit_cube":
+            continue # Interdire push des cubes (ca ira plus vite sans)
         try:
             action_obj.world_state = deepcopy(state)
             new_state = action_obj.push(obj)
@@ -65,18 +71,19 @@ def generate_actions(action_obj, state):
                 actions.append((new_state, f"push({obj})"))
         except Exception:
             pass
-    '''
+    
     # roll
-    for obj in objets:
+    for pos in positions:
+        obj = "cylindre"
         try:
             action_obj.world_state = deepcopy(state)
-            new_state = action_obj.roll(obj, 1)
+            new_state = action_obj.roll(obj,pos)
             if new_state:
-                actions.append((deepcopy(new_state), f"roll({obj},1)"))
+                actions.append((deepcopy(new_state), f"roll({obj,pos},1)"))
         except Exception:
             pass
         
-    # print(len(actions))'''
+    # print(len(actions))
 
     return actions
 
@@ -115,6 +122,7 @@ def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
         state, chain, parent = queue.popleft()
         if(len(chain) != prev_len_chen):
             print("taille de chain",len(chain))
+            print("nombre de noeuds", comp)
             prev_len_chen = len(chain)
         state_key = state_to_key(state)
 
