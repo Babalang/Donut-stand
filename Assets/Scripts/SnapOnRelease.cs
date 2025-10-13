@@ -225,7 +225,6 @@ public class SnapOnRelease : MonoBehaviour
             float objectHeight = maxY - minY;
 
             float highestY = gridSnapper.gridOrigin.y;
-            bool found = false;
 
             GameObject[] grabbables = GameObject.FindGameObjectsWithTag("Grabbable");
             foreach (GameObject go in grabbables)
@@ -244,7 +243,6 @@ public class SnapOnRelease : MonoBehaviour
                             if (topY > highestY)
                             {
                                 highestY = topY;
-                                found = true;
                             }
                         }
                     }
@@ -265,7 +263,11 @@ public class SnapOnRelease : MonoBehaviour
                 rb.isKinematic = false;
             }
 
-
+            WorldStateManager worldManager = FindObjectOfType<WorldStateManager>();
+            if (worldManager != null)
+            {
+                worldManager.UpdateObjectState(this.gameObject);
+            }
         }
     }
 
@@ -288,7 +290,6 @@ public class SnapOnRelease : MonoBehaviour
 
         Collider[] collidersAtPos = Physics.OverlapSphere(new Vector3(snappedPos.x, 0, snappedPos.z), checkRadius);
         maxY = 0;
-        bool found = false;
         foreach (Collider col in collidersAtPos)
         {
             if (col.gameObject != this.gameObject && col.CompareTag("Grabbable"))
@@ -297,7 +298,6 @@ public class SnapOnRelease : MonoBehaviour
                 if (topY > maxY)
                 {
                     maxY = topY;
-                    found = true;
                 }
             }
         }

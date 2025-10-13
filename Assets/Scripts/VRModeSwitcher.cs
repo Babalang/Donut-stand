@@ -14,6 +14,7 @@ public class VRModeSwitcher : MonoBehaviour
     public GameObject loadingScreen;
     public TMP_Text statusText;
     public BaseInputModule mouseModule;
+    public WorldStateManager worldStateManager;
 
     IEnumerator Start()
     {
@@ -42,7 +43,7 @@ public class VRModeSwitcher : MonoBehaviour
             statusText.text = "Lancement en mode classique";
             ActiveNonVRMode();
         }
-
+        worldStateManager.LoadWorldState();
         if (loadingScreen != null) loadingScreen.SetActive(false);
     }
 

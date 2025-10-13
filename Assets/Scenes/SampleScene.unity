@@ -401,9 +401,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 167457187}
-        m_TargetAssemblyTypeName: Unity.VRTemplate.StepManager, Assembly-CSharp
-        m_MethodName: Next
+      - m_Target: {fileID: 167457188}
+        m_TargetAssemblyTypeName: ButtonOnclick1, Assembly-CSharp
+        m_MethodName: SaveProjectBase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2253,7 +2253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6640387835271095783, guid: 72138a47ec7b8714c91aa39dcdf3b714, type: 3}
       propertyPath: m_Name
-      value: Grand_Cube
+      value: grand_cube
       objectReference: {fileID: 0}
     - target: {fileID: 6640387835271095783, guid: 72138a47ec7b8714c91aa39dcdf3b714, type: 3}
       propertyPath: m_TagString
@@ -2560,9 +2560,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 167457187}
-        m_TargetAssemblyTypeName: Unity.VRTemplate.StepManager, Assembly-CSharp
-        m_MethodName: Next
+      - m_Target: {fileID: 167457188}
+        m_TargetAssemblyTypeName: ButtonOnclick1, Assembly-CSharp
+        m_MethodName: SaveProjectFinal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3240,7 +3240,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 09e49c427809dce419d48179f38acdfb, type: 2}
     - target: {fileID: 919132149155446097, guid: 101d94b53fa06b749b373916a79832ed, type: 3}
       propertyPath: m_Name
-      value: ds
+      value: donut_saucisse
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 101d94b53fa06b749b373916a79832ed, type: 3}
       propertyPath: m_TagString
@@ -3763,6 +3763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1394562110}
   - component: {fileID: 1394562109}
+  - component: {fileID: 1394562111}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3787,6 +3788,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1042181148}
   statusText: {fileID: 479623451}
   mouseModule: {fileID: 610590594}
+  worldStateManager: {fileID: 1394562111}
 --- !u!4 &1394562110
 Transform:
   m_ObjectHideFlags: 0
@@ -3802,6 +3804,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394562111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394562108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1044e97df00866478eb085e3926dc45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldStateManager
+  gridCellSize: 3
+  gridSnapper: {fileID: 228982895}
 --- !u!1 &1426321816
 GameObject:
   m_ObjectHideFlags: 0
@@ -4976,7 +4992,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4cc989b101e202e4f811f185bcfcc5ef, type: 2}
     - target: {fileID: 6568707489918681564, guid: efc728d29da971f47a1fb0e9164a99b0, type: 3}
       propertyPath: m_Name
-      value: Sol
+      value: table
       objectReference: {fileID: 0}
     - target: {fileID: 6568707489918681564, guid: efc728d29da971f47a1fb0e9164a99b0, type: 3}
       propertyPath: m_Layer
@@ -5429,7 +5445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6512716314604831236, guid: 2c1a76173c7e0144fbab968bd1968de1, type: 3}
       propertyPath: m_Name
-      value: Cylinder Interactable
+      value: cylindre
       objectReference: {fileID: 0}
     - target: {fileID: 6512716314604831236, guid: 2c1a76173c7e0144fbab968bd1968de1, type: 3}
       propertyPath: m_TagString
@@ -6269,7 +6285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6640387835271095783, guid: 72138a47ec7b8714c91aa39dcdf3b714, type: 3}
       propertyPath: m_Name
-      value: Petit_Cube
+      value: petit_cube
       objectReference: {fileID: 0}
     - target: {fileID: 6640387835271095783, guid: 72138a47ec7b8714c91aa39dcdf3b714, type: 3}
       propertyPath: m_TagString
