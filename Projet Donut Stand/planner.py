@@ -91,21 +91,16 @@ def generate_actions(action_obj, state):
 
 def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
     arbre_file = "arbre.json"
+    chemin_file = "chemin.json"
     action_obj = Action(base_file)
     init_state = action_obj.world_state
-
-    #print("init_state",init_state)
 
     final_a_obj = Action(final_file)
     final_state = final_a_obj.world_state
 
-    #pprint.pprint(init_state)
-    #pprint.pprint(final_state)
-
-
     visited = set()
-    queue = deque([(init_state, [],None)])  # (state, actions_chain)
-    comp=0
+    queue = deque([(init_state, [], None)])  # (state, actions_chain, parent)
+    comp = 0
 
     arbre = []
     node_id = 0
@@ -115,13 +110,10 @@ def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
 
     start_time = time.time()
     while queue:
-        comp+=1
-        #print("comp",comp)
-        
-        
+        comp += 1
         state, chain, parent = queue.popleft()
-        if(len(chain) != prev_len_chen):
-            print("taille de chain",len(chain))
+        if len(chain) != prev_len_chen:
+            print("taille de chain", len(chain))
             print("nombre de noeuds", comp)
             prev_len_chen = len(chain)
         state_key = state_to_key(state)
@@ -138,8 +130,20 @@ def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
         node_id += 1
 
         if is_goal(state, final_state):
+            # Sauvegarde de l'arbre
             with open(arbre_file, "w", encoding="utf-8") as f:
                 json.dump(arbre, f, indent=2, ensure_ascii=False)
+            # Construction du chemin complet des états
+            path_nodes = []
+            nid = current_id
+            while nid is not None:
+                node = arbre[nid]
+                path_nodes.append(node["state"])
+                nid = node["parent"]
+            path_nodes.reverse()
+            # Sauvegarde du chemin d'états
+            with open(chemin_file, "w", encoding="utf-8") as f:
+                json.dump(path_nodes, f, indent=2, ensure_ascii=False)
             end_time = time.time()
             print(f"Temps d'exécution : {end_time - start_time:.2f} secondes")
             return chain
@@ -149,15 +153,16 @@ def bfs_planner(base_file="test_base.json", final_file="test_base.json"):
             if new_state_key not in visited:
                 queue.append((new_state, chain + [act_name], current_id))
                 visited.add(new_state_key)
+    # Si aucun plan trouvé, sauvegarder l'arbre
     with open(arbre_file, "w", encoding="utf-8") as f:
-            json.dump(arbre, f, indent=2, ensure_ascii=False)
+        json.dump(arbre, f, indent=2, ensure_ascii=False)
     end_time = time.time()
     print(f"Temps d'exécution : {end_time - start_time:.2f} secondes")
     return None
 
 
 if __name__ == "__main__":
-    plan = bfs_planner("base.json", "final.json")
+    plan = bfs_planner("test_base.json", "test_final.json")
     if plan:
         print("Plan trouvé !")
         for i, step in enumerate(plan, 1):

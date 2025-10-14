@@ -1,0 +1,110 @@
+[
+  {
+    "arm": {
+      "holding": false,
+      "object": null
+    },
+    "forme": {
+      "petit_cube": {
+        "couleur": "violet",
+        "materiau": "bois",
+        "poids": 1,
+        "opaque": 1,
+        "position_occupe": [
+          [
+            -1,
+            1
+          ]
+        ],
+        "on_Top_of": "table",
+        "under": "nothing",
+        "orientation": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "arm": {
+      "holding": true,
+      "object": "petit_cube"
+    },
+    "forme": {
+      "petit_cube": {
+        "couleur": "violet",
+        "materiau": "bois",
+        "poids": 1,
+        "opaque": 1,
+        "position_occupe": [
+          [
+            -1,
+            1
+          ]
+        ],
+        "on_Top_of": "table",
+        "under": "nothing",
+        "orientation": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "arm": {
+      "holding": true,
+      "object": "petit_cube"
+    },
+    "forme": {
+      "petit_cube": {
+        "couleur": "violet",
+        "materiau": "bois",
+        "poids": 1,
+        "opaque": 1,
+        "position_occupe": [
+          [
+            1,
+            -1
+          ]
+        ],
+        "on_Top_of": "table",
+        "under": "nothing",
+        "orientation": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  },
+  {
+    "arm": {
+      "holding": false,
+      "object": null
+    },
+    "forme": {
+      "petit_cube": {
+        "couleur": "violet",
+        "materiau": "bois",
+        "poids": 1,
+        "opaque": 1,
+        "position_occupe": [
+          [
+            1,
+            -1
+          ]
+        ],
+        "on_Top_of": "table",
+        "under": "nothing",
+        "orientation": [
+          0,
+          1,
+          0
+        ]
+      }
+    }
+  }
+]

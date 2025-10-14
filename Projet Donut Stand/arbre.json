@@ -1,0 +1,418 @@
+[
+  {
+    "id": 0,
+    "parent": null,
+    "action": null,
+    "state": {
+      "arm": {
+        "holding": false,
+        "object": null
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              -1,
+              1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 1,
+    "parent": 0,
+    "action": "pickup(petit_cube)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              -1,
+              1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 2,
+    "parent": 1,
+    "action": "drop(petit_cube)",
+    "state": {
+      "arm": {
+        "holding": false,
+        "object": null
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              -1,
+              1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 3,
+    "parent": 1,
+    "action": "moveTo(0, 0)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              0,
+              0
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 4,
+    "parent": 1,
+    "action": "moveTo(1, -1)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              1,
+              -1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 5,
+    "parent": 1,
+    "action": "moveTo(0, -1)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              0,
+              -1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 6,
+    "parent": 1,
+    "action": "moveTo(0, 1)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              0,
+              1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 7,
+    "parent": 1,
+    "action": "moveTo(-1, 0)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              -1,
+              0
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 8,
+    "parent": 1,
+    "action": "moveTo(1, 0)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              1,
+              0
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 9,
+    "parent": 1,
+    "action": "moveTo(1, 1)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              1,
+              1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 10,
+    "parent": 1,
+    "action": "moveTo(-1, -1)",
+    "state": {
+      "arm": {
+        "holding": true,
+        "object": "petit_cube"
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              -1,
+              -1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 11,
+    "parent": 3,
+    "action": "drop(petit_cube)",
+    "state": {
+      "arm": {
+        "holding": false,
+        "object": null
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              0,
+              0
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 12,
+    "parent": 4,
+    "action": "drop(petit_cube)",
+    "state": {
+      "arm": {
+        "holding": false,
+        "object": null
+      },
+      "forme": {
+        "petit_cube": {
+          "couleur": "violet",
+          "materiau": "bois",
+          "poids": 1,
+          "opaque": 1,
+          "position_occupe": [
+            [
+              1,
+              -1
+            ]
+          ],
+          "on_Top_of": "table",
+          "under": "nothing",
+          "orientation": [
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  }
+]
