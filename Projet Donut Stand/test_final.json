@@ -9,7 +9,7 @@
             "position_occupe": [
                 [ 1, -1 ]
             ],
-            "on_Top_of": "table",
+            "on_Top_of": "grand_cube",
             "under" : "nothing",
             "orientation" : [0, 1, 0]
         }

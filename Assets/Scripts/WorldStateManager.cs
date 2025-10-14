@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 
-
 public class WorldStateManager : MonoBehaviour
 {
 
@@ -25,7 +24,7 @@ public class WorldStateManager : MonoBehaviour
         if (string.IsNullOrEmpty(jsonFilePath))
             jsonFilePath = Path.Combine(Application.dataPath, "../Projet Donut Stand/base.json");
         if (string.IsNullOrEmpty(jsonSolPath))
-            jsonSolPath = Path.Combine(Application.dataPath, "../Projet Donut Stand/tmp.json");
+            jsonSolPath = Path.Combine(Application.dataPath, "../Projet Donut Stand/route.json");
         Debug.Log("Chemin complet JSON : " + Path.GetFullPath(jsonFilePath));
 
     }
@@ -230,7 +229,14 @@ public class WorldStateManager : MonoBehaviour
             float x = f.position_occupe[0][0] * gridCellSize;
             float z = f.position_occupe[0][1] * gridCellSize;
             Vector3 pos = new Vector3(x, y, z);
-            obj.transform.position = gridSnapper.GetSnappedPosition(pos);
+            Collider[] myCols = obj.GetComponentsInChildren<Collider>();
+            float minY = float.MaxValue;
+            foreach (var col in myCols)
+                minY = Mathf.Min(minY, col.bounds.min.y);
+            float bottomOffset = obj.transform.position.y - minY;
+            pos = gridSnapper.GetSnappedPosition(pos);
+            pos.y = y + bottomOffset;
+            obj.transform.position = pos;
             if (f.orientation != null && f.orientation.Count == 3)
             {
                 Vector3 orient = new Vector3(f.orientation[0], f.orientation[1], f.orientation[2]);
@@ -241,6 +247,150 @@ public class WorldStateManager : MonoBehaviour
         }
         foreach (var kvp in state.forme)
             PlaceRecursively(kvp.Key);
+    }
+
+    public static bool AreFormeEqual(Dictionary<string, FormeData> a, Dictionary<string, FormeData> b)
+    {
+        if (a.Count != b.Count) return false;
+        foreach (var kvp in a)
+        {
+            if (!b.ContainsKey(kvp.Key)) return false;
+            if (!AreFormeDataEqual(kvp.Value, b[kvp.Key])) return false;
+        }
+        return true;
+    }
+
+    public static bool AreFormeDataEqual(FormeData f1, FormeData f2)
+    {
+        if (f1.on_Top_of != f2.on_Top_of) return false;
+        if (f1.under != f2.under) return false;
+        if (f1.position_occupe.Count != f2.position_occupe.Count) return false;
+        for (int i = 0; i < f1.position_occupe.Count; i++)
+        {
+            if (f1.position_occupe[i].Count != f2.position_occupe[i].Count) return false;
+            for (int j = 0; j < f1.position_occupe[i].Count; j++)
+            {
+                if (Mathf.Abs(f1.position_occupe[i][j] - f2.position_occupe[i][j]) > 0.001f) return false;
+            }
+        }
+        if (f1.orientation.Count != f2.orientation.Count) return false;
+        for (int i = 0; i < f1.orientation.Count; i++)
+        {
+            if (Mathf.Abs(f1.orientation[i] - f2.orientation[i]) > 0.001f) return false;
+        }
+        return true;
+    }
+
+    public void ChercheSolution()
+    {
+        string jsonFileArbre = Path.Combine(Application.dataPath, "../Projet Donut Stand/arbre.json");
+        string jsonArbre = File.ReadAllText(jsonFileArbre);
+        List<SolutionStep> solutionSteps = JsonConvert.DeserializeObject<List<SolutionStep>>(jsonArbre);
+        string jsonBase = File.ReadAllText(jsonFilePath);
+        RootData data = JsonConvert.DeserializeObject<RootData>(jsonBase);
+        bool b=false,f=false;
+        int idBase=0,idFinal=0;
+        foreach(var step in solutionSteps){
+            StateData state=step.state;
+            if(AreFormeEqual(state.forme,data.forme)){
+                b=true;
+                idBase=step.id;
+                Debug.Log("Base trouvé "+idBase);
+                break;
+            }
+        }
+        if(b==false){
+            Debug.Log("Base non trouve");
+            return;
+        }
+        string jsonFileFinal = Path.Combine(Application.dataPath, "../Projet Donut Stand/final.json");
+        string jsonFinal = File.ReadAllText(jsonFileFinal);
+        RootData data2 = JsonConvert.DeserializeObject<RootData>(jsonFinal);
+        foreach(var step in solutionSteps){
+            StateData state=step.state;
+            if(AreFormeEqual(state.forme,data2.forme)){
+                f=true;
+                idFinal=step.id;
+                Debug.Log("Final trouvé et "+idFinal);
+                break;
+            }
+        }
+        if(f==false){
+            Debug.Log("Final non trouve");
+            return;
+        }
+        int? nb;
+        List<int?> chemin=new List<int?>();
+        if(idBase==0){
+            nb=idFinal;
+            chemin.Add(nb);
+            while(nb!=idBase){
+                foreach(var step in solutionSteps){
+                    if(step.id==nb){
+                        nb=step.parent;
+                        chemin.Add(nb);
+                        break;
+                    }
+                }
+            }
+        }else if(idFinal==0){
+            nb=idBase;
+            chemin.Add(nb);
+            while(nb!=idFinal){
+                foreach(var step in solutionSteps){
+                    if(step.id==nb){
+                        nb=step.parent;
+                        chemin.Add(nb);
+                        break;
+                    }
+                }
+            }
+        }else{
+            List<int?> chemin1=new List<int?>();
+            nb=idBase;
+            chemin1.Add(nb);
+            while(nb!=0){
+                foreach(var step in solutionSteps){
+                    if(step.id==nb){
+                        nb=step.parent;
+                        chemin1.Add(nb);
+                        break;
+                    }
+                }
+            }
+            List<int?> chemin2=new List<int?>();
+            nb=idFinal;
+            chemin2.Add(nb);
+            while(nb!=0){
+                foreach(var step in solutionSteps){
+                    if(step.id==nb){
+                        nb=step.parent;
+                        chemin2.Add(nb);
+                        break;
+                    }
+                }
+            }
+            chemin2.Reverse();
+            chemin.AddRange(chemin1);
+            chemin.AddRange(chemin2);
+        }
+        foreach(var n in chemin){
+            Debug.Log(n);
+        }
+        List<SolutionStep> solu = new List<SolutionStep>();
+        chemin.Reverse();
+        foreach(var n in chemin){
+            foreach(var step in solutionSteps){
+                if(step.id==n){
+                    solu.Add(step);
+                    break;
+                }
+            }
+        }
+        string jsonSolu = JsonConvert.SerializeObject(solu, Formatting.Indented);
+        File.WriteAllText(jsonSolPath, jsonSolu);
+        Debug.Log("solution trouvé");
+        return;
     }
 
 
