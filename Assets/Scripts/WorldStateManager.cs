@@ -165,7 +165,12 @@ public class WorldStateManager : MonoBehaviour
         Ray ray = new Ray(obj.transform.position + Vector3.up * 0.1f, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 2f))
             if (hit.collider.gameObject.CompareTag("Grabbable"))
+            {
+                allData[hit.collider.gameObject.name].under = obj.name;
+                Debug.Log(hit.collider.gameObject.name);
+                Debug.Log(allData[hit.collider.gameObject.name].under);
                 return hit.collider.gameObject.name;
+            }
         return "table";
     }
 
@@ -174,7 +179,10 @@ public class WorldStateManager : MonoBehaviour
         Ray ray = new Ray(obj.transform.position + Vector3.down * 0.1f, Vector3.up);
         if (Physics.Raycast(ray, out RaycastHit hit, 2f))
             if (hit.collider.gameObject.CompareTag("Grabbable"))
+            {
+                allData[hit.collider.gameObject.name].on_Top_of = obj.name;
                 return hit.collider.gameObject.name;
+            }
         return "nothing";
     }
 

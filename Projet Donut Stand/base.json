@@ -1,80 +1,80 @@
 {
   "forme": {
-        "petit_cube": {
-          "couleur": "violet",
-          "materiau": "bois",
-          "poids": 1,
-          "opaque": 1,
-          "position_occupe": [
-            [
-              -1,
-              1
-            ]
-          ],
-          "on_Top_of": "table",
-          "under": "nothing",
-          "orientation": [
-            0,
-            1,
-            0
-          ]
-        },
-        "grand_cube": {
-          "couleur": "gris",
-          "materiau": "roche",
-          "poids": 1,
-          "opaque": 1,
-          "position_occupe": [
-            [
-              0,
-              0
-            ]
-          ],
-          "on_Top_of": "table",
-          "under": "nothing",
-          "orientation": [
-            0,
-            1,
-            0
-          ]
-        },
-        "cylindre": {
-          "couleur": "gris",
-          "materiau": "W",
-          "poids": 10,
-          "opaque": 1,
-          "position_occupe": [
-            [
-              -1,
-              0
-            ]
-          ],
-          "on_Top_of": "table",
-          "under": "nothing",
-          "orientation": [
-            0,
-            1,
-            0
-          ]
-        },
-        "donut_saucisse": {
-          "couleur": "rouge",
-          "materiau": "métal",
-          "poids": 1,
-          "opaque": 1,
-          "position_occupe": [
-            [
-              -1,
-              0
-            ]
-          ],
-          "on_Top_of": "table",
-          "under": "nothing",
-          "orientation": [
-            0,
-            1,
-            0
-          ]
-        }
-      }
+    "petit_cube": {
+      "couleur": "violet",
+      "materiau": "bois",
+      "poids": 1.0,
+      "opaque": 1,
+      "position_occupe": [
+        [
+          -1.0,
+          1.0
+        ]
+      ],
+      "on_Top_of": "table",
+      "under": "grand_cube",
+      "orientation": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "grand_cube": {
+      "couleur": "gris",
+      "materiau": "roche",
+      "poids": 1.0,
+      "opaque": 1,
+      "position_occupe": [
+        [
+          -1.0,
+          1.0
+        ]
+      ],
+      "on_Top_of": "petit_cube",
+      "under": "nothing",
+      "orientation": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "cylindre": {
+      "couleur": "gris",
+      "materiau": "W",
+      "poids": 10.0,
+      "opaque": 1,
+      "position_occupe": [
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "on_Top_of": "table",
+      "under": "nothing",
+      "orientation": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "donut_saucisse": {
+      "couleur": "rouge",
+      "materiau": "métal",
+      "poids": 1.0,
+      "opaque": 1,
+      "position_occupe": [
+        [
+          -1.0,
+          -1.0
+        ]
+      ],
+      "on_Top_of": "table",
+      "under": "nothing",
+      "orientation": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  }
 }

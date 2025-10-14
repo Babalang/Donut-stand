@@ -4,7 +4,7 @@ public class ButtonOnclick1 : MonoBehaviour
 {
     public void OnButtonClicked()
     {
-        Debug.Log("Bouton cliqu� !");
+        Debug.Log("Bouton cliqué !");
         WorldStateManager worldManager = FindObjectOfType<WorldStateManager>();
         if (worldManager != null)
             worldManager.ChercheSolution();
@@ -13,7 +13,7 @@ public class ButtonOnclick1 : MonoBehaviour
 
     public void SaveProjectBase()
     {
-        Debug.Log("Bouton cliqu� !");
+        Debug.Log("Bouton cliqué !");
         WorldStateManager worldManager = FindObjectOfType<WorldStateManager>();
         if (worldManager != null)
             worldManager.SaveWorldState("base.json");
@@ -21,7 +21,7 @@ public class ButtonOnclick1 : MonoBehaviour
 
     public void SaveProjectFinal()
     {
-        Debug.Log("Bouton cliqu� !");
+        Debug.Log("Bouton cliqué !");
         WorldStateManager worldManager = FindObjectOfType<WorldStateManager>();
         if (worldManager != null)
             worldManager.SaveWorldState("final.json");
