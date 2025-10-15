@@ -45,11 +45,11 @@
       "opaque": 1,
       "position_occupe": [
         [
-          1.0,
-          1.0
+          0.0,
+          0.0
         ]
       ],
-      "on_Top_of": "table",
+      "on_Top_of": "donut_saucisse",
       "under": "nothing",
       "orientation": [
         0.0,
@@ -64,16 +64,16 @@
       "opaque": 1,
       "position_occupe": [
         [
-          -1.0,
-          -1.0
+          0.0,
+          0.0
         ]
       ],
       "on_Top_of": "table",
-      "under": "nothing",
+      "under": "cylindre",
       "orientation": [
         0.0,
-        1.0,
-        0.0
+        0.0,
+        1.0
       ]
     }
   }

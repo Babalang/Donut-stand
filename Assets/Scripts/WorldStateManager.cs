@@ -145,13 +145,13 @@ public class WorldStateManager : MonoBehaviour
         int gz = Mathf.RoundToInt(obj.transform.position.z / gridCellSize);
         f.position_occupe = new List<List<float>> { new List<float> { gx, gz } };
         Vector3 up = obj.transform.up.normalized;
-        Vector3 forward = obj.transform.forward.normalized;
         if (up == Vector3.up)
         {
             f.orientation = new List<float> { 0, 1, 0 };
         }
         else
         {
+            Debug.Log("couché");
             f.orientation = new List<float> { 0, 0, 1 };
         }
 
@@ -204,8 +204,12 @@ public class WorldStateManager : MonoBehaviour
 
         foreach (var step in solutionSteps)
         {
-            ApplyWorldState(step.state);
-            yield return new WaitForSeconds(pauseDuration);
+            if(step.id != 0)
+            {
+                ApplyWorldState(step.state);
+                yield return new WaitForSeconds(pauseDuration);
+            }
+           
         }
         Debug.Log("Solution terminée !");
     }
@@ -248,8 +252,15 @@ public class WorldStateManager : MonoBehaviour
             if (f.orientation != null && f.orientation.Count == 3)
             {
                 Vector3 orient = new Vector3(f.orientation[0], f.orientation[1], f.orientation[2]);
-                if (orient == Vector3.forward)
+                if (f.orientation[2] == 1)
+                {
                     obj.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+                }
+                else
+                {
+                    obj.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                }
             }
             placedObjects.Add(name);
         }
@@ -260,6 +271,7 @@ public class WorldStateManager : MonoBehaviour
     public static bool AreFormeEqual(Dictionary<string, FormeData> a, Dictionary<string, FormeData> b)
     {
         if (a.Count != b.Count) return false;
+
         foreach (var kvp in a)
         {
             if (!b.ContainsKey(kvp.Key)) return false;
@@ -300,7 +312,7 @@ public class WorldStateManager : MonoBehaviour
         int idBase=0,idFinal=0;
         foreach(var step in solutionSteps){
             StateData state=step.state;
-            if(AreFormeEqual(state.forme,data.forme)){
+            if(AreFormeEqual(state.forme,data.forme) && !state.arm.holding){
                 b=true;
                 idBase=step.id;
                 Debug.Log("Base trouvé "+idBase);
@@ -341,7 +353,9 @@ public class WorldStateManager : MonoBehaviour
                     }
                 }
             }
-        }else if(idFinal==0){
+            chemin.Reverse();
+        }
+        else if(idFinal==0){
             nb=idBase;
             chemin.Add(nb);
             while(nb!=idFinal){
@@ -366,6 +380,16 @@ public class WorldStateManager : MonoBehaviour
                     }
                 }
             }
+
+            foreach (var step in solutionSteps)
+            {
+                if (step.id == nb)
+                {
+                    nb = step.parent;
+                    chemin1.Add(nb);
+                    break;
+                }
+            }
             List<int?> chemin2=new List<int?>();
             nb=idFinal;
             chemin2.Add(nb);
@@ -386,7 +410,6 @@ public class WorldStateManager : MonoBehaviour
             Debug.Log(n);
         }
         List<SolutionStep> solu = new List<SolutionStep>();
-        chemin.Reverse();
         foreach(var n in chemin){
             foreach(var step in solutionSteps){
                 if(step.id==n){
